@@ -16,11 +16,10 @@ app.get("/", (req, res) => {
   res.send("hello developer");
 });
 
-// ===== MongoDB Setup =====
-const uri = process.env.MONGODB_URI; // Vercel -> Environment Variables এ সেট করে নিও
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ebf9ofi.mongodb.net/?appName=Cluster0`;
 
 if (!uri) {
-  console.error("❌ MONGODB_URI is not defined in environment variables");
+  console.error(" MONGODB_URI is not defined in environment variables");
 }
 
 const client = new MongoClient(uri, {
@@ -124,7 +123,7 @@ app.put("/updatepage/:id", async (req, res) => {
   }
 });
 
-// delete product  ❗ আগের bug: req.params -> এখন req.params.id
+// delete product  আগের bug: req.params -> এখন req.params.id
 app.delete("/delete/:id", async (req, res) => {
   try {
     await connectDB();
